@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+/* body {
+    background-image: url('./img/worldmap2.jpeg');
+
+} */
+
 /*--------- SUBMIT BUTTON --------- */
 #btnShowData {
 	box-shadow:inset 0px 1px 6px 0px #ffffff;
@@ -41,7 +46,7 @@ form {
     display: flex;
     flex-direction: column;
     /* margin: auto; */
-    margin-top: 5%;
+    margin-top: 3%;
     justify-content: center;
     align-items: center;
 }
@@ -51,6 +56,7 @@ label {
     margin-bottom: 2%;
     font-weight: bold;
 }
+
 
 input {
     width: 80%;
@@ -65,7 +71,8 @@ input::placeholder {
 }
 
 .select-capital,
-.select-country {
+.select-country,
+.select-continent {
     display: block;
     display: flex;
     width: 40%;
@@ -82,8 +89,57 @@ input[type="radio"] {
 }
 
 #capital-label, 
-#country-label {
+#country-label,
+#continents-label {
     font-size: 1.5em;
     display: block;
     width: 100%;
 }
+
+hr {
+    margin: 3% auto 2% auto;
+    width: 40%;
+    border: 1px solid rgb(87, 129, 192);
+}
+
+h3 {
+    margin-left: 9%;
+    margin-bottom: 1%;
+    display: none;
+}
+
+#title-results {
+    text-decoration: underline 2px;
+}
+
+span {
+    color:rgb(87, 129, 192);
+    font-size: 130%;
+}
+
+.continents-options {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.continents-options label {
+    margin-right: 17%;
+    font-size: 1.5em;
+    display: block;
+}
+
+option {
+    text-align: center;
+    border: 1px solid;
+}
+
+.continents-options {
+    display: none;
+
+}
+
+.continents-options label {
+    color: rgb(87, 129, 192);
+}
+
