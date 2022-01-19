@@ -12,29 +12,53 @@
 
     <form action="" method="post">
 
-        <label for="searchbar">Which country do you want to know about ?</label>
+        <label for="searchbar" class="label-searchbar">Which country do you want to know about ?</label>
         <input type="text" name="searchbar" id="searchbar" placeholder="Brasil, Ethiopia, Canada...">
 
         <div class="select-capital">
 
             <label for="capital" id="capital-label">Search by capital's name</label>
-            <input type="radio" name="capital" id="capital">
+            <input type="radio" value="capital" name="options" id="capital" >
 
         </div>
 
         <div class="select-country">
-            
+
             <label for="capital" id="country-label">Search by country's name</label>
-            <input type="radio" name="country" id="country">
+            <input type="radio" value="country" name="options" id="country" checked>
+        </div>
+
+        <div class="select-continent">
+
+            <label for="continents" id="continents-label">Search by continent</label>
+            <input type="radio" value="continents" name="options" id="continents">
+        </div>
+
+        <div class="continents-options">
+            <label for="continents">Select a continent :</label>
+            <select name="continents" id="continents-list">
+
+                <option value="Europe">Europe</option>
+                <option value="North America">North America</option>
+                <option value="South America">South America</option>
+                <option value="Africa">Africa</option>
+                <option value="Oceania">Oceania</option>
+                <option value="Asia">Asia</option>
+                <!-- <option value="Europe">Europe</option> -->
+            </select>
         </div>
     </form>
-
-
-
-
-
+    
     <button type="submit" id="btnShowData"> Show Data </button>
 
+    <hr>
+
+    <h3 id="title-results">RESULTS OF YOUR RESEARCH ABOUT <span id="about-country"></span> :</h3>
+
+    <h3>Capital: <span id="about-capital"></span></h3>
+    <h3>Currency: <span id="about-currency"></span></h3>
+    <h3>Continent: <span id="about-continent"></span></h3>
+    
 
 
 <!-- -------------SCRIPT JS -------------- -->
