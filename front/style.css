@@ -1,3 +1,12 @@
+/*-------------------------- GENERAL PARAMETERS -------------------------- */
+
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*--------- SUBMIT BUTTON --------- */
 #btnShowData {
 	box-shadow:inset 0px 1px 6px 0px #ffffff;
 	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
@@ -7,7 +16,7 @@
 	display:block;
 	cursor:pointer;
 	font-family:Arial;
-	font-size:38px;
+	font-size:28px;
 	font-weight:bold;
 	padding:6px 24px;
 	text-decoration:none;
@@ -18,4 +27,63 @@
 #btnShowData:hover {
 	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
 	background-color:#dfdfdf;
+}
+
+
+/*--------- FORM ELEMENTS --------- */
+
+/* form > * {
+    display: block;
+    
+} */
+
+form {
+    display: flex;
+    flex-direction: column;
+    /* margin: auto; */
+    margin-top: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    font-size: 5vh;
+    margin-bottom: 2%;
+    font-weight: bold;
+}
+
+input {
+    width: 80%;
+    height: 40px;
+    border: solid 1px rgb(87, 129, 192);
+    padding-left: 1%;
+    font-size: 20px;
+}
+
+input::placeholder {
+    margin-left: 2%;
+}
+
+.select-capital,
+.select-country {
+    display: block;
+    display: flex;
+    width: 40%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.select-capital {
+    margin-top: 4%;
+}
+
+input[type="radio"] {
+    width: 8%;
+}
+
+#capital-label, 
+#country-label {
+    font-size: 1.5em;
+    display: block;
+    width: 100%;
 }
