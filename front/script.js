@@ -1,5 +1,10 @@
 let countriesList1 = document.createElement('ul');
 let submitBtn = document.querySelector('#btnShowData');
+let inputFieldValue = document.querySelector('#searchbar').value; //Input field value (search bar)
+
+const loadingSpinner = document.querySelector('.lds-spinner'); //Load spinner for website loading
+loadingSpinner.style.display = "none"; //LOAD SPINNER : HIDDEN
+
 const countryOption = document.querySelector('#country');
 const capitalOption = document.querySelector('#capital');
 const continentOption = document.querySelector('#continents');
@@ -13,7 +18,6 @@ const allInfosFields = document.querySelectorAll('h3');
 const continentsSelectOption = document.querySelector('#continents-list'); //Continents category : continents select option
 const countriesSelectOption = document.querySelector('#countries-select-options');//Continents subcategory : Countries select option  
 let toggle = false;
-
 
 // ------------------------- INITIALIZING THE COUNTRIES DATA API ------------------------- :
 async function getAllCountries() {
@@ -34,9 +38,6 @@ async function getAllCountries() {
         }
         countriesList.appendChild(country); 
     }
-
-    // console.log(data);
-    // console.log(countriesList);
 
     //GETTING EUROPE COUNTRIES : 
     const resEurope = await fetch('https://restcountries.com/v3.1/region/europe');
@@ -106,16 +107,19 @@ async function getAllCountries() {
 // CREATING A FUNCTION THAT WILL SEARCH A COUNTRY WITH ITS CAPITAL'S NAME
 
 async function getCountryByCapital() {
-    
+
+    loadingSpinner.style.display = "inline-block";
+
     const capital = document.querySelector('#searchbar').value;
     const countryField = document.querySelector('#about-country');
     const capitalField = document.querySelector('#about-capital');
     const currencyField = document.querySelector('#about-currency');
     const continentField = document.querySelector('#about-continent');
-    // const res = await fetch(`https://restcountries.com/v3.1/capital/lima`);
 
     const res = await fetch(`https://restcountries.com/v3.1/capital/${capital}`);
     const data = await res.json();
+
+    loadingSpinner.style.display = "none";
 
     // CURRENCY :
     let currencies = data[0].currencies;
@@ -146,15 +150,18 @@ async function getCountryByCapital() {
 
 async function getCountryByName() {
 
+    loadingSpinner.style.display = "inline-block";
+
     const country = document.querySelector('#searchbar').value;
     const countryField = document.querySelector('#about-country');
     const capitalField = document.querySelector('#about-capital');
     const currencyField = document.querySelector('#about-currency');
     const continentField = document.querySelector('#about-continent');
-    // const res = await fetch(`https://restcountries.com/v3.1/name/peru`);
 
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     const data = await res.json();
+
+    loadingSpinner.style.display = "none";
 
     // CURRENCY :
     let currencies = data[0].currencies;
@@ -190,6 +197,7 @@ function launchResearchCountry() {
 
     searchForm.addEventListener('submit', (e) => {
 
+        loadingSpinner.style.display = "inline-block";
         e.preventDefault();
     
         if (countryOption.checked) {
@@ -201,7 +209,7 @@ function launchResearchCountry() {
         }
         
     });
-    const inputField = document.querySelector('#searchbar').value = "";
+    inputField = document.querySelector('#searchbar').value = "";
 };
 
 launchResearchCountry();
@@ -209,7 +217,7 @@ launchResearchCountry();
 //Adding an event listener to my submit button :
 submitBtn.addEventListener('click', (e) => {
     
-
+    loadingSpinner.style.display = "inline-block";
     e.preventDefault();
     
     if (countryOption.checked) {
@@ -224,12 +232,14 @@ submitBtn.addEventListener('click', (e) => {
 
 //AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * AFRICA * 
 
-// //CREATING A FUNCTION THAT WILL CREATE A LIST OF THE AFRICAN COUNTRIES WHEN AFRICA CONTINENT IS SELECTED:
+// //CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF THE AFRICAN COUNTRIES WHEN AFRICA CONTINENT IS SELECTED:
 
 async function listAfricanCountries() {
     
     const resAfrica = await fetch('https://restcountries.com/v3.1/region/africa');
     const dataAfrica = await resAfrica.json();
+    
+    loadingSpinner.style.display = "none";
 
     const africaCountries = dataAfrica.map((country)=> {
 
@@ -237,11 +247,8 @@ async function listAfricanCountries() {
     })
 
     while (countriesSelectOption.length > 1) {
-        console.log("supprimé AFRICA: ", countriesSelectOption.lastElementChild);
         countriesSelectOption.removeChild(countriesSelectOption.lastElementChild);
     }
-
-    console.log("longueur countries list AFRICA ", countriesSelectOption.length);
 
     for (let i = 0; i < africaCountries.length; i++) {
         
@@ -252,57 +259,51 @@ async function listAfricanCountries() {
         countriesSelectOption.appendChild(africanCountry);
         
     }
-
-    console.log("longueur countries AFRICA post ajout: ", countriesSelectOption.length );
 }
 
 // listAfricanCountries();
 
 //AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * 
 
-//CREATING A FUNCTION THAT WILL CREATE A LIST OF THE AMERICAS COUNTRIES WHEN AMERICAS CONTINENT IS SELECTED:
+//CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF THE AMERICAS COUNTRIES WHEN AMERICAS CONTINENT IS SELECTED:
 
 async function listAmericasCountries() {
     
     const resAmericas = await fetch('https://restcountries.com/v3.1/region/americas');
     const dataAmericas = await resAmericas.json();
 
+    loadingSpinner.style.display = "none";
+
     const americasCountries = dataAmericas.map((country)=> {
 
         return country.name.common;
     })
 
-    // console.log(americasCountries);
-
     while (countriesSelectOption.length > 1) {
-        console.log("supprimé: AMERICA", countriesSelectOption.lastElementChild);
         countriesSelectOption.removeChild(countriesSelectOption.lastElementChild);
     }
-
-    console.log("longueur countries list AMERICAS", countriesSelectOption.length);
 
     for (let i = 0; i < americasCountries.length; i++) {
 
         let americanCountry = document.createElement('option');
         americanCountry.value = americasCountries[i];
         americanCountry.innerHTML = americasCountries[i];
-        countriesSelectOption.appendChild(americanCountry);
-        
+        countriesSelectOption.appendChild(americanCountry);  
     }
-
-    console.log("longueur countries AMERICAS post ajout: ", countriesSelectOption.length );
 }
 
 // listAmericasCountries();
 
 // EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * 
 
-//CREATING A FUNCTION THAT WILL CREATE A LIST OF THE EUROPEAN COUNTRIES WHEN EUROPEAN CONTINENT IS SELECTED:
+//CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF THE EUROPEAN COUNTRIES WHEN EUROPEAN CONTINENT IS SELECTED:
 
 async function listEuropeCountries() {
     
     const resEurope = await fetch('https://restcountries.com/v3.1/region/europe');
     const dataEurope = await resEurope.json();
+
+    loadingSpinner.style.display = "none";
 
     const europeanCountries = dataEurope.map((country)=> {
 
@@ -324,10 +325,70 @@ async function listEuropeCountries() {
 }
 // listEuropeCountries();
 
+//ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * 
+//CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF THE ASIAN COUNTRIES WHEN ASIA CONTINENT IS SELECTED:
 
+async function listAsianCountries() {
+    
+    loadingSpinner.style.display = "inline-block";
+    const resAsia = await fetch('https://restcountries.com/v3.1/region/asia');
+    const dataAsia = await resAsia.json();
 
+    loadingSpinner.style.display = "none";
 
+    const asianCountries = dataAsia.map((country)=> {
 
+        return country.name.common;
+    })
+
+    while (countriesSelectOption.length > 1) {
+        countriesSelectOption.removeChild(countriesSelectOption.lastElementChild);
+    }
+
+    for (let i = 0; i < asianCountries.length; i++) {
+
+        let asianCountry = document.createElement('option');
+        asianCountry.value = asianCountries[i];
+        asianCountry.innerHTML = asianCountries[i];
+        countriesSelectOption.appendChild(asianCountry);
+    }
+
+}
+
+// listAsianCountries();
+
+// OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * 
+//CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF OCEANIA'S COUNTRIES WHEN OCEANIA REGION IS SELECTED:
+
+async function listOceaniaCountries() {
+    
+    loadingSpinner.style.display = "inline-block";
+
+    const resOceania = await fetch('https://restcountries.com/v3.1/region/oceania');
+    const dataOceania = await resOceania.json();
+
+    loadingSpinner.style.display = "none";
+
+    const oceaniaCountries = dataOceania.map((country)=> {
+
+        return country.name.common;
+    })
+
+    while (countriesSelectOption.length > 1) {
+        countriesSelectOption.removeChild(countriesSelectOption.lastElementChild);
+    }
+
+    for (let i = 0; i < oceaniaCountries.length; i++) {
+
+        let oceanianCountry = document.createElement('option');
+        oceanianCountry.value = oceaniaCountries[i];
+        oceanianCountry.innerHTML = oceaniaCountries[i];
+        countriesSelectOption.appendChild(oceanianCountry);
+    }
+
+}
+
+// listOceaniaCountries();
 
 
 continentOption.addEventListener('click', () => {
@@ -340,9 +401,9 @@ continentOption.addEventListener('click', () => {
 })
 
 
-
 continentsSelectOption.addEventListener('change', () => {
-    
+
+    loadingSpinner.style.display = "inline-block";
     countriesList.style.display = "flex";
     
     if (continentsSelectOption.value === "Africa") {
@@ -351,20 +412,49 @@ continentsSelectOption.addEventListener('change', () => {
         
     } else if (continentsSelectOption.value === "Americas") {
         listAmericasCountries();
-        console.log("coucou Americas");
 
     } else if (continentsSelectOption.value === "Europe") {
         listEuropeCountries();
+
+    } else if (continentsSelectOption.value === "Asia") {
+        listAsianCountries();
+
+    } else if (continentsSelectOption.value === "Oceania") {
+        listOceaniaCountries();
+    } else {
+
+        while (countriesSelectOption.length > 1) {
+            countriesSelectOption.removeChild(countriesSelectOption.lastElementChild);
+        }
+        countriesList.style.display = "none";
+        loadingSpinner.style.display = "none";
     }
 
-    
 })
+
+countriesSelectOption.addEventListener('change', () => {
+
+    document.querySelector('#searchbar').value = countriesSelectOption.value;
+    inputFieldValue = countriesSelectOption.value;
+    getCountryByName();
+})
+
 
 //  ---------------------------------- TO DO  ---------------------------------
 
 //catch errors : if country's name or capital's name is wrong or field empty 
 
+//Trier pays par ordre alphabetique
 
+//In continentsSelectOption : uncheck the input radio first (so that it doesnt execute the code, just in case)
+
+//Research "Zanzibar" : script.js:121 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'currencies') at getCountryByCapital
+
+//Research "China" : script.js:171 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading '0')
+    // at getCountryByName (script.js:171:36)
+    // getCountryByName @ script.js:171
+    // await in getCountryByName (async)
+    // (anonymous) @ script.js:419
 
 
  
