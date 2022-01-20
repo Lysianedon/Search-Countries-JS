@@ -9,8 +9,15 @@
 </head>
 <body>
     
-
+   
     <form action="" method="post">
+
+         <!------------------------ LOAD SPINNER ---------------------- -->
+
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+        <!----------------------- END LOAD  SPINNER ----------------------->
+
 
         <label for="searchbar" class="label-searchbar">Which country do you want to know about ?</label>
         <input type="text" name="searchbar" id="searchbar" placeholder="Brasil, Ethiopia, Canada...">
@@ -38,15 +45,24 @@
             <label for="continents">Select a continent :</label>
             <select name="continents" id="continents-list">
 
-                <option value="Europe">Europe</option>
-                <option value="North America">North America</option>
-                <option value="South America">South America</option>
+                <option value="empty-selec">Select</option>
                 <option value="Africa">Africa</option>
-                <option value="Oceania">Oceania</option>
+                <option value="Americas">Americas</option>
                 <option value="Asia">Asia</option>
-                <!-- <option value="Europe">Europe</option> -->
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+
             </select>
         </div>
+
+        <div class="countries-options">
+            <label for="countries-options">Select a country :</label>
+
+            <select name="countries-options" id="countries-select-options" >
+                <option value="empty-selec" id="empty-selec">Select</option>
+            </select>
+        </div>
+
     </form>
     
     <button type="submit" id="btnShowData"> Show Data </button>
