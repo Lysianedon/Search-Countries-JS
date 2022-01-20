@@ -40,8 +40,11 @@
   color: black;
 }
 
-/*--------- FORM ELEMENTS --------- */
+#reset-btn {
+  color: rgb(66, 64, 64);
+}
 
+/*--------- FORM ELEMENTS --------- */
 
 form {
     display: flex;
@@ -167,6 +170,12 @@ option {
 .ulCountry:nth-child(odd){
   color: rgb(98, 98, 148);
 }
+
+/* MAP * MAP  * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP */
+
+#map { height: 480px;
+width: 50%;
+margin: auto; }
 
 /* ---------------------------------- LOAD SPINNER  ---------------------------------- */
 
