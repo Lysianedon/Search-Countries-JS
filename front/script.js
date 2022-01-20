@@ -23,6 +23,9 @@ const continentsSelectOption = document.querySelector('#continents-list'); //Con
 const countriesSelectOption = document.querySelector('#countries-select-options');//Continents subcategory : Countries select option  
 let toggle = false;
 
+const targetPlace = [0,0]; //Map settings view : corresponding to the country/capital's position 
+let map = L.map('map').setView([47.5, 19.8], 6); // Map view;
+
 // ------------------------- INITIALIZING THE COUNTRIES DATA API ------------------------- :
 async function getAllCountries() {
     
@@ -50,38 +53,6 @@ async function getAllCountries() {
     //INSERTING MY UL LIST INTO THE DOM BELOW THE <HR> ------- : 
     const displayInitialCountiesList = document.querySelector('hr').parentElement.insertBefore(initialCountiesList, allInfosFields[0]);
 
-    //GETTING EUROPE COUNTRIES : 
-    const resEurope = await fetch('https://restcountries.com/v3.1/region/europe');
-    const dataEurope = await resEurope.json();
-
-    const europeanCountries = dataEurope.map((country)=> {
-
-        return country.name.common;
-    })
-
-
-    //GETTING ASIA COUNTRIES : 
-    const resAsia = await fetch('https://restcountries.com/v3.1/region/asia');
-    const dataAsia = await resAsia.json();
-
-    const asianCountries = dataAsia.map((country)=> {
-
-        return country.name.common;
-    })
-
-
-    //GETTING AMERICAS COUNTRIES : 
-    const resAmericas = await fetch('https://restcountries.com/v3.1/region/americas');
-    const dataAmericas = await resAmericas.json();
-
-    const americasCountries = dataAmericas.map((country)=> {
-
-        return country.name.common;
-    })
-
-    // console.log(americasCountries);
-
-
     //GETTING AFRICA'S COUNTRIES : 
     const resAfrica = await fetch('https://restcountries.com/v3.1/region/africa');
     const dataAfrica = await resAfrica.json();
@@ -94,18 +65,17 @@ async function getAllCountries() {
 
     // console.log(africaCountries);
 
-    //GETTING OCEANIA'S COUNTRIES : 
-    const resOceania = await fetch('https://restcountries.com/v3.1/region/oceania');
-    const dataOceania = await resOceania.json();
-    // console.log(dataOceania);
+    // SETTING MY MAP VIEW :
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 13,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibHlzaWFuZSIsImEiOiJja3luMnlwb2EzbDdlMnFvOGRmYWI5YW8yIn0.xLYPqil-ZwAtIqcxljjGOg'
+    }).addTo(map);
 
-    const oceaniaCountries = dataOceania.map((country)=> {
 
-        return country.name.common;
-    })
-
-    // console.log(oceaniaCountries);
-    
 }
 
 getAllCountries();
