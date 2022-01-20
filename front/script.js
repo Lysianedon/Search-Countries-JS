@@ -1,6 +1,7 @@
 // ---------------------------- INITIALIZING MY VARIABLES ------------------------------- :
 let countriesList1 = document.createElement('ul');
-let submitBtn = document.querySelector('#btnShowData');
+const submitBtn = document.querySelector('#btnShowData');
+const resetBtn = document.querySelector('#reset-btn');
 let inputFieldValue = document.querySelector('#searchbar').value; //Input field value (search bar)
 
 const loadingSpinner = document.querySelector('.lds-spinner'); //Load spinner for website loading
@@ -196,11 +197,35 @@ async function getCountryByName() {
 
 }
 
+
+// ADDING A RESET FUNCTION : WHEN CLICKING ON THE RESET BUTTON, THE WEBSITE FIELDS GET REINITIALIZED ----
+
+function resetAll() {
+    
+    resetBtn.addEventListener('click', (e) => {
+        
+        e.preventDefault();
+        //HIDING THE USER'S SEARCH RESULTS TO DISPLAY THE INITIAL GLOBAL COUNTRIES LIST:
+        document.querySelector('input').value = "";
+        document.querySelectorAll('span').forEach(info => info.innerHTML = "");
+        continentsList.style.display = "none";
+        countriesList.style.display = "none";
+        document.querySelectorAll('h3').forEach(info => info.style.display = "none");
+        //DISPLAYING MY INITIAL GLOBAL LIST OF COUNTRIES:
+        initialCountiesList.style.display = "block";
+        
+    })
+}
+
+// resetAll() ;
+
 //-------------------- CREATING MY SEARCH FUNCTIONS  -------------------- : 
 
-//Adding an event listener to my form :
+//Adding event listeners to my form :
 function launchResearchCountry() {
 
+    //Enabling the reset function :
+    resetAll();
 
     searchForm.addEventListener('submit', (e) => {
 
@@ -452,8 +477,6 @@ continentsSelectOption.addEventListener('change', () => {
 
         //DISPLAYING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
         document.querySelector('ul').style.display = "block";
-    
-
     }
 
 })
@@ -464,6 +487,10 @@ countriesSelectOption.addEventListener('change', () => {
     inputFieldValue = countriesSelectOption.value;
     getCountryByName();
 })
+
+
+
+
 
 
 
