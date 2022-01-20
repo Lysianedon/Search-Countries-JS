@@ -1,3 +1,4 @@
+// ---------------------------- INITIALIZING MY VARIABLES ------------------------------- :
 let countriesList1 = document.createElement('ul');
 let submitBtn = document.querySelector('#btnShowData');
 let inputFieldValue = document.querySelector('#searchbar').value; //Input field value (search bar)
@@ -44,37 +45,33 @@ async function getAllCountries() {
         }
         initialCountiesList.appendChild(country); 
     }
+
     //INSERTING MY UL LIST INTO THE DOM BELOW THE <HR> ------- : 
     const displayInitialCountiesList = document.querySelector('hr').parentElement.insertBefore(initialCountiesList, allInfosFields[0]);
 
     //GETTING EUROPE COUNTRIES : 
     const resEurope = await fetch('https://restcountries.com/v3.1/region/europe');
     const dataEurope = await resEurope.json();
-    // console.log(dataEurope);
 
     const europeanCountries = dataEurope.map((country)=> {
 
         return country.name.common;
     })
 
-    // console.log(europeanCountries);
 
     //GETTING ASIA COUNTRIES : 
     const resAsia = await fetch('https://restcountries.com/v3.1/region/asia');
     const dataAsia = await resAsia.json();
-    // console.log(dataAsia);
 
     const asianCountries = dataAsia.map((country)=> {
 
         return country.name.common;
     })
 
-    // console.log(asianCountries);
 
     //GETTING AMERICAS COUNTRIES : 
     const resAmericas = await fetch('https://restcountries.com/v3.1/region/americas');
     const dataAmericas = await resAmericas.json();
-    // console.log(dataAmericas);
 
     const americasCountries = dataAmericas.map((country)=> {
 
@@ -112,7 +109,6 @@ async function getAllCountries() {
 
 getAllCountries();
 
-
 // CREATING A FUNCTION THAT WILL SEARCH A COUNTRY WITH ITS CAPITAL'S NAME
 
 async function getCountryByCapital() {
@@ -129,8 +125,7 @@ async function getCountryByCapital() {
     const data = await res.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    console.log(getDisplayInitialCountiesListByUl);
-    // getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -172,9 +167,9 @@ async function getCountryByName() {
     const data = await res.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
-     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
+    //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
 
     // CURRENCY :
@@ -252,7 +247,7 @@ async function listAfricanCountries() {
     const dataAfrica = await resAfrica.json();
     
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -287,7 +282,7 @@ async function listAmericasCountries() {
     const dataAmericas = await resAmericas.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -321,7 +316,7 @@ async function listEuropeCountries() {
     const dataEurope = await resEurope.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -355,7 +350,7 @@ async function listAsianCountries() {
     const dataAsia = await resAsia.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -391,7 +386,7 @@ async function listOceaniaCountries() {
     const dataOceania = await resOceania.json();
 
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    getDisplayInitialCountiesListByUl.style.display = "none";
+    document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -456,7 +451,8 @@ continentsSelectOption.addEventListener('change', () => {
         loadingSpinner.style.display = "none";
 
         //DISPLAYING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-        getDisplayInitialCountiesListByUl.style.display = "block";
+        document.querySelector('ul').style.display = "block";
+    
 
     }
 
