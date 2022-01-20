@@ -23,9 +23,20 @@ const continentsSelectOption = document.querySelector('#continents-list'); //Con
 const countriesSelectOption = document.querySelector('#countries-select-options');//Continents subcategory : Countries select option  
 let toggle = false;
 
-// let targetPlace = [47.5, 19.08]; //Map settings view : corresponding to the country/capital's position 
-// let map = L.map('map').setView(targetPlace, 6); // Map view;
-// document.querySelector('#map').style.display = "none";
+let targetPlace = [47.5, 19.08]; //Map settings view : corresponding to the country/capital's position 
+let map = L.map('map').setView(targetPlace, 6); // Map view;
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 13,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibHlzaWFuZSIsImEiOiJja3luMnlwb2EzbDdlMnFvOGRmYWI5YW8yIn0.xLYPqil-ZwAtIqcxljjGOg'
+}).addTo(map);
+
+document.querySelector('#map').style.display = "none"; //Hiding the map before any API request
+
 // ------------------------- INITIALIZING THE COUNTRIES DATA API ------------------------- :
 async function getAllCountries() {
     
@@ -53,19 +64,6 @@ async function getAllCountries() {
     //INSERTING MY UL LIST INTO THE DOM BELOW THE <HR> ------- : 
     const displayInitialCountiesList = document.querySelector('hr').parentElement.insertBefore(initialCountiesList, allInfosFields[0]);
 
-    //GETTING AFRICA'S COUNTRIES : 
-    const resAfrica = await fetch('https://restcountries.com/v3.1/region/africa');
-    const dataAfrica = await resAfrica.json();
-    // console.log(dataAfrica);
-
-    const africaCountries = dataAfrica.map((country)=> {
-
-        return country.name.common;
-    })
-
-    // console.log(africaCountries);
-
-
 }
 
 getAllCountries();
@@ -87,26 +85,12 @@ async function getCountryByCapital() {
     const data = await res.json();
 
     //GETTING THE POSITION OF THE COUNTRY IN THE JSON:
-
-    let capitalPositionX = data[0].capitalInfo.latlng[0];
-    let capitalPositionY = data[0].capitalInfo.latlng[1];
-    let targetPlace = [capitalPositionX, capitalPositionY];
-
-    console.log(targetPlace, ": targetPlace of", capital);
+    let x = data[0].capitalInfo.latlng[0];
+    let y = data[0].capitalInfo.latlng[1];
+    let targetPlace = [x, y];
 
     // SETTING MY MAP VIEW WITH MY CAPITAL'S POSITION:
-
-    let map = L.map('map').setView(targetPlace, 6); // Map view;
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 13,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibHlzaWFuZSIsImEiOiJja3luMnlwb2EzbDdlMnFvOGRmYWI5YW8yIn0.xLYPqil-ZwAtIqcxljjGOg'
-    }).addTo(map);
-
+    map.setView(targetPlace, 6);
 
     //MAP VIEW DISPLAY : 
     document.querySelector('#map').style.display = "block";
@@ -137,7 +121,6 @@ async function getCountryByCapital() {
     allInfosFields.forEach(field => field.style.display = "block");
 
 }
-// getCountryByCapital();
 
 // CREATING A FUNCTION THAT WILL SEARCH A COUNTRY WITH ITS NAME
 
@@ -154,8 +137,23 @@ async function getCountryByName() {
     const res = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     const data = await res.json();
 
+    //GETTING THE POSITION OF THE COUNTRY IN THE JSON:
+    let x = data[0].latlng[0];
+    let y = data[0].latlng[1];
+    let targetPlace = [x, y];
+    
+    // SETTING MY MAP VIEW WITH MY CAPITAL'S POSITION:
+    map.setView(targetPlace, 6);
+
+    //MAP VIEW DISPLAY : 
+    document.querySelector('#map').style.display = "block";
+
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
-    document.querySelector('ul').style.display = "none";
+    
+    if ( document.querySelector('ul')) {
+        document.querySelector('ul').style.display = "none";
+        
+    }
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
@@ -172,7 +170,6 @@ async function getCountryByName() {
     //CAPITAL :
     const capital = data[0].capital[0];
 
-    
     // FILLING MY HTML RESULTS FIELDS WITH THE COUNTRY'S DATA :
     countryField.innerHTML =  country.toUpperCase();
     capitalField.innerHTML = capital;
@@ -198,16 +195,17 @@ function resetAll() {
         continentsList.style.display = "none";
         countriesList.style.display = "none";
         document.querySelectorAll('h3').forEach(info => info.style.display = "none");
-        //DISPLAYING MY INITIAL GLOBAL LIST OF COUNTRIES:
-        initialCountiesList.style.display = "block";
-
+        
         //HIDING THE MAP VIEW :
         document.querySelector('#map').style.display = "none";
+        
+        //DISPLAYING MY INITIAL GLOBAL LIST OF COUNTRIES:
+            
+        document.querySelector('ul').style.display = "block";
         
     })
 }
 
-// resetAll() ;
 
 //-------------------- CREATING MY SEARCH FUNCTIONS  -------------------- : 
 
@@ -477,10 +475,6 @@ countriesSelectOption.addEventListener('change', () => {
     inputFieldValue = countriesSelectOption.value;
     getCountryByName();
 })
-
-
-
-
 
 
 
