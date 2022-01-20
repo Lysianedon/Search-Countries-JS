@@ -23,9 +23,9 @@ const continentsSelectOption = document.querySelector('#continents-list'); //Con
 const countriesSelectOption = document.querySelector('#countries-select-options');//Continents subcategory : Countries select option  
 let toggle = false;
 
-const targetPlace = [0,0]; //Map settings view : corresponding to the country/capital's position 
-let map = L.map('map').setView([47.5, 19.8], 6); // Map view;
-
+// let targetPlace = [47.5, 19.08]; //Map settings view : corresponding to the country/capital's position 
+// let map = L.map('map').setView(targetPlace, 6); // Map view;
+// document.querySelector('#map').style.display = "none";
 // ------------------------- INITIALIZING THE COUNTRIES DATA API ------------------------- :
 async function getAllCountries() {
     
@@ -65,16 +65,6 @@ async function getAllCountries() {
 
     // console.log(africaCountries);
 
-    // SETTING MY MAP VIEW :
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 13,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibHlzaWFuZSIsImEiOiJja3luMnlwb2EzbDdlMnFvOGRmYWI5YW8yIn0.xLYPqil-ZwAtIqcxljjGOg'
-    }).addTo(map);
-
 
 }
 
@@ -84,6 +74,7 @@ getAllCountries();
 
 async function getCountryByCapital() {
 
+    
     loadingSpinner.style.display = "inline-block";
 
     const capital = document.querySelector('#searchbar').value;
@@ -95,12 +86,38 @@ async function getCountryByCapital() {
     const res = await fetch(`https://restcountries.com/v3.1/capital/${capital}`);
     const data = await res.json();
 
+    //GETTING THE POSITION OF THE COUNTRY IN THE JSON:
+
+    let capitalPositionX = data[0].capitalInfo.latlng[0];
+    let capitalPositionY = data[0].capitalInfo.latlng[1];
+    let targetPlace = [capitalPositionX, capitalPositionY];
+
+    console.log(targetPlace, ": targetPlace of", capital);
+
+    // SETTING MY MAP VIEW WITH MY CAPITAL'S POSITION:
+
+    let map = L.map('map').setView(targetPlace, 6); // Map view;
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 13,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibHlzaWFuZSIsImEiOiJja3luMnlwb2EzbDdlMnFvOGRmYWI5YW8yIn0.xLYPqil-ZwAtIqcxljjGOg'
+    }).addTo(map);
+
+
+    //MAP VIEW DISPLAY : 
+    document.querySelector('#map').style.display = "block";
+
+
     //HIDING MY INITIAL GLOBAL COUNTRIES LIST TO REPLACE IT WITH THE USER'S SEARCH RESULTS :
     document.querySelector('ul').style.display = "none";
 
     //REMOVING THE LOADING SPINNER AS SOON AS THE SEARCH RESULTS ARE DISPLAYED : 
     loadingSpinner.style.display = "none";
-
+    
     // CURRENCY :
     let currencies = data[0].currencies;
     let currencyKey = Object.values(currencies);
@@ -110,7 +127,6 @@ async function getCountryByCapital() {
     //CONTINENT :
     const continent = `${data[0].continents[0]}`;
 
-
     // FILLING MY HTML RESULTS FIELDS WITH THE COUNTRY'S DATA :
     countryField.innerHTML =  data[0].name.common;
     capitalField.innerHTML = capital;
@@ -119,8 +135,9 @@ async function getCountryByCapital() {
 
     //MAKING MY INFOS VISIBLE BY CHANGING THE DISPLAY:
     allInfosFields.forEach(field => field.style.display = "block");
-}
 
+}
+// getCountryByCapital();
 
 // CREATING A FUNCTION THAT WILL SEARCH A COUNTRY WITH ITS NAME
 
@@ -183,6 +200,9 @@ function resetAll() {
         document.querySelectorAll('h3').forEach(info => info.style.display = "none");
         //DISPLAYING MY INITIAL GLOBAL LIST OF COUNTRIES:
         initialCountiesList.style.display = "block";
+
+        //HIDING THE MAP VIEW :
+        document.querySelector('#map').style.display = "none";
         
     })
 }
