@@ -72,25 +72,26 @@ getAllCountries();
 
 async function getCountryByCapital() {
 
+    const capital = document.querySelector('#searchbar').value;
+
     //Guard : 
-    // if (Error) {
+    if (capital === ""|| capital === " ") {
 
-    //     loadingSpinner.style.display = "none";
-    //     const msgError = document.createElement('p');
-    //     msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
-    //     msgError.classList.add('error');
-    //     document.body.insertBefore(msgError, searchForm);
+        loadingSpinner.style.display = "none";
+        const msgError = document.createElement('p');
+        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
+        msgError.classList.add('error');
+        document.body.insertBefore(msgError, searchForm);
 
-    //     setTimeout(() => {
-    //         msgError.remove();
-    //     }, 2000);
+        setTimeout(() => {
+            msgError.remove();
+        }, 2000);
 
-    //     return;
-    // }
+        return;
+    }
     
     loadingSpinner.style.display = "inline-block";
 
-    const capital = document.querySelector('#searchbar').value;
     const countryField = document.querySelector('#about-country');
     const capitalField = document.querySelector('#about-capital');
     const currencyField = document.querySelector('#about-currency');
@@ -146,7 +147,21 @@ async function getCountryByName() {
 
     if (country.toUpperCase() === 'CHINA') {
         country = "Chine";
-    } 
+    } else if (country === ""|| country === " ") {
+
+        loadingSpinner.style.display = "none";
+        const msgError = document.createElement('p');
+        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
+        msgError.classList.add('error');
+        document.body.insertBefore(msgError, searchForm);
+
+        setTimeout(() => {
+            msgError.remove();
+        }, 2000);
+
+        return;
+    }
+
 
     loadingSpinner.style.display = "inline-block";
 
@@ -443,7 +458,6 @@ async function listOceaniaCountries() {
 
 }
 
-
 continentOption.addEventListener('click', () => {
 
     toggle = true; 
@@ -489,12 +503,15 @@ continentsSelectOption.addEventListener('change', () => {
 
 })
 
-countriesSelectOption.addEventListener('change', () => {
 
+countriesSelectOption.addEventListener('change', () => {
     document.querySelector('#searchbar').value = countriesSelectOption.value;
     inputFieldValue = countriesSelectOption.value;
     getCountryByName();
+
 })
+
+
 
 
 
