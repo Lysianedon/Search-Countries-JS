@@ -5,8 +5,14 @@
     padding: 0;
     box-sizing: border-box;
 }
-  
+
+body {
+  background-color: #f7f7f7;
+}
+
 /*--------- SUBMIT BUTTON --------- */
+
+
 .buttons {
   display: flex;
   justify-content: space-around;
@@ -47,12 +53,14 @@
 /*--------- FORM ELEMENTS --------- */
 
 form {
-    display: flex;
-    flex-direction: column;
-    /* margin: auto; */
-    margin-top: 3%;
-    justify-content: center;
-    align-items: center;
+  background: url('../bg/map5.jpeg') no-repeat;
+  background-position: center;
+  background-size: 55%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3%;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 label {
@@ -174,7 +182,7 @@ option {
 /* MAP * MAP  * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP * MAP */
 
 #map { height: 480px;
-width: 50%;
+width: 55%;
 margin: auto; }
 
 /* ---------------------------------- LOAD SPINNER  ---------------------------------- */
