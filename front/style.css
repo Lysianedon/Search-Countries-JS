@@ -60,7 +60,7 @@ body {
 /*--------- FORM ELEMENTS --------- */
 
 form {
-  background: url('/bg/map5.jpeg') no-repeat;
+  background: url('./bg/map5.jpeg') no-repeat;
   background-position: center;
   background-size: 55%;
   display: flex;
