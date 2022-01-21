@@ -60,7 +60,7 @@ body {
 /*--------- FORM ELEMENTS --------- */
 
 form {
-  background: url('./bg/map5.jpeg') no-repeat;
+  background: url('../bg/map5.jpeg') no-repeat;
   background-position: center;
   background-size: 55%;
   display: flex;
@@ -350,5 +350,9 @@ margin: auto; }
   input[type="radio"]{
     width: 16%;
   }
+
+  #map { height: 480px;
+    width: 85%;
+    margin: auto; }
 
 }
