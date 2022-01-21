@@ -5,38 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- MAP VIEW CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+   <!-- MAP VIEW JS -->
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   <!-- SCRIPT JS -->
+   <script src="script.js" defer></script>
     <title>Countries API</title>
 </head>
 <body>
     
-   
     <form action="" method="post">
 
-         <!------------------------ LOAD SPINNER ---------------------- -->
+        <!-- --------------------- LOAD SPINNER ---------------------- -->
 
     <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
-        <!----------------------- END LOAD  SPINNER ----------------------->
+        <!-- -------------------- END LOAD  SPINNER -------------------- -->
 
 
         <label for="searchbar" class="label-searchbar">Which country do you want to know about ?</label>
         <input type="text" name="searchbar" id="searchbar" placeholder="Brasil, Ethiopia, Canada...">
 
         <div class="select-capital">
-
             <label for="capital" id="capital-label">Search by capital's name</label>
             <input type="radio" value="capital" name="options" id="capital" >
-
         </div>
 
         <div class="select-country">
-
             <label for="capital" id="country-label">Search by country's name</label>
             <input type="radio" value="country" name="options" id="country" checked>
         </div>
 
         <div class="select-continent">
-
             <label for="continents" id="continents-label">Search by continent</label>
             <input type="radio" value="continents" name="options" id="continents">
         </div>
@@ -44,40 +49,40 @@
         <div class="continents-options">
             <label for="continents">Select a continent :</label>
             <select name="continents" id="continents-list">
-
                 <option value="empty-selec">Select</option>
                 <option value="Africa">Africa</option>
                 <option value="Americas">Americas</option>
                 <option value="Asia">Asia</option>
                 <option value="Europe">Europe</option>
                 <option value="Oceania">Oceania</option>
-
             </select>
         </div>
-
+        
         <div class="countries-options">
             <label for="countries-options">Select a country :</label>
-
+            
             <select name="countries-options" id="countries-select-options" >
                 <option value="empty-selec" id="empty-selec">Select</option>
             </select>
         </div>
+        
+        <div class="buttons">
+            <button type="reset" id="reset-btn">RESET</button>
+            <button type="submit" id="btnShowData"> Show Data </button>
+        </div>
 
     </form>
     
-    <button type="submit" id="btnShowData"> Show Data </button>
-
     <hr>
-
+    
     <h3 id="title-results">RESULTS OF YOUR RESEARCH ABOUT <span id="about-country"></span> :</h3>
-
     <h3>Capital: <span id="about-capital"></span></h3>
     <h3>Currency: <span id="about-currency"></span></h3>
     <h3>Continent: <span id="about-continent"></span></h3>
     
-
+    <div id="map"></div>
 
 <!-- -------------SCRIPT JS -------------- -->
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
