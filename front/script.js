@@ -72,23 +72,21 @@ getAllCountries();
 
 async function getCountryByCapital() {
 
-    //Guards : 
+    //Guard : 
+    // if (Error) {
 
-    if (Error) {
+    //     loadingSpinner.style.display = "none";
+    //     const msgError = document.createElement('p');
+    //     msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
+    //     msgError.classList.add('error');
+    //     document.body.insertBefore(msgError, searchForm);
 
-        loadingSpinner.style.display = "none";
+    //     setTimeout(() => {
+    //         msgError.remove();
+    //     }, 2000);
 
-        const msgError = document.createElement('p');
-        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
-        msgError.classList.add('error');
-        document.body.insertBefore(msgError, searchForm);
-
-        setTimeout(() => {
-            msgError.remove();
-        }, 2000);
-
-        return;
-    }
+    //     return;
+    // }
     
     loadingSpinner.style.display = "inline-block";
 
@@ -100,14 +98,6 @@ async function getCountryByCapital() {
 
     const res = await fetch(`https://restcountries.com/v3.1/capital/${capital}`);
     const data = await res.json();
-
-
-
-    // if (capital === " " || capital === "") {
-        
-        
-        
-    // }
 
     //GETTING THE POSITION OF THE COUNTRY IN THE JSON:
     let x = data[0].capitalInfo.latlng[0];
@@ -151,24 +141,12 @@ async function getCountryByCapital() {
 
 async function getCountryByName() {
 
-    //Guard 
-    const country = document.querySelector('#searchbar').value;
+    //Guards 
+    let country = document.querySelector('#searchbar').value;
 
-    if (Error) {
-
-        loadingSpinner.style.display = "none";
-
-        const msgError = document.createElement('p');
-        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
-        msgError.classList.add('error');
-        document.body.insertBefore(msgError, searchForm);
-
-        setTimeout(() => {
-            msgError.remove();
-        }, 2000);
-
-        return;
-    }
+    if (country.toUpperCase() === 'CHINA') {
+        country = "Chine";
+    } 
 
     loadingSpinner.style.display = "inline-block";
 
@@ -518,22 +496,6 @@ countriesSelectOption.addEventListener('change', () => {
     getCountryByName();
 })
 
-//  ---------------------------------- TO DO  ---------------------------------
-
-//catch errors : if country's name or capital's name is wrong or field empty 
-
-//Trier pays par ordre alphabetique
-
-//In continentsSelectOption : uncheck the input radio first (so that it doesnt execute the code, just in case)
-
-//Research "Zanzibar" : script.js:121 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'currencies') at getCountryByCapital
-
-//Research "China" : script.js:171 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading '0')
-    // at getCountryByName (script.js:171:36)
-    // getCountryByName @ script.js:171
-    // await in getCountryByName (async)
-    // (anonymous) @ script.js:419
 
 
- 
 
