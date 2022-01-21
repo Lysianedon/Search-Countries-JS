@@ -1,24 +1,24 @@
 // ---------------------------- INITIALIZING MY VARIABLES ------------------------------- :
-let countriesList1 = document.createElement('ul');
-const submitBtn = document.querySelector('#btnShowData');
-const resetBtn = document.querySelector('#reset-btn');
+const submitBtn = document.querySelector('#btnShowData'); //Submit Button
+const resetBtn = document.querySelector('#reset-btn'); // Reset Button
 let inputFieldValue = document.querySelector('#searchbar').value; //Input field value (search bar)
 
 const loadingSpinner = document.querySelector('.lds-spinner'); //Load spinner for website loading
 loadingSpinner.style.display = "none"; //LOAD SPINNER : HIDDEN
 
-const getDisplayInitialCountiesListByUl = document.querySelector('initialCountiesList');
+const getDisplayInitialCountiesListByUl = document.querySelector('initialCountiesList'); //Initial countries list 
 
-const countryOption = document.querySelector('#country');
-const capitalOption = document.querySelector('#capital');
-const continentOption = document.querySelector('#continents');
+const countryOption = document.querySelector('#country'); 
+const capitalOption = document.querySelector('#capital'); 
+const continentOption = document.querySelector('#continents'); 
 
-const continentsList = document.querySelector('.continents-options');
-const countriesList = document.querySelector('.countries-options');
+const continentsList = document.querySelector('.continents-options');  
+const countriesList = document.querySelector('.countries-options'); 
 
 const searchForm = document.querySelector('form');
 const allInfosFields = document.querySelectorAll('h3'); 
 
+let countriesList1 = document.createElement('ul'); 
 const continentsSelectOption = document.querySelector('#continents-list'); //Continents category : continents select option
 const countriesSelectOption = document.querySelector('#countries-select-options');//Continents subcategory : Countries select option  
 let toggle = false;
@@ -72,6 +72,23 @@ getAllCountries();
 
 async function getCountryByCapital() {
 
+    //Guards : 
+
+    if (Error) {
+
+        loadingSpinner.style.display = "none";
+
+        const msgError = document.createElement('p');
+        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
+        msgError.classList.add('error');
+        document.body.insertBefore(msgError, searchForm);
+
+        setTimeout(() => {
+            msgError.remove();
+        }, 2000);
+
+        return;
+    }
     
     loadingSpinner.style.display = "inline-block";
 
@@ -83,6 +100,14 @@ async function getCountryByCapital() {
 
     const res = await fetch(`https://restcountries.com/v3.1/capital/${capital}`);
     const data = await res.json();
+
+
+
+    // if (capital === " " || capital === "") {
+        
+        
+        
+    // }
 
     //GETTING THE POSITION OF THE COUNTRY IN THE JSON:
     let x = data[0].capitalInfo.latlng[0];
@@ -126,9 +151,27 @@ async function getCountryByCapital() {
 
 async function getCountryByName() {
 
+    //Guard 
+    const country = document.querySelector('#searchbar').value;
+
+    if (Error) {
+
+        loadingSpinner.style.display = "none";
+
+        const msgError = document.createElement('p');
+        msgError.innerHTML = "Erreur, remplissez correctement le champs! ";
+        msgError.classList.add('error');
+        document.body.insertBefore(msgError, searchForm);
+
+        setTimeout(() => {
+            msgError.remove();
+        }, 2000);
+
+        return;
+    }
+
     loadingSpinner.style.display = "inline-block";
 
-    const country = document.querySelector('#searchbar').value;
     const countryField = document.querySelector('#about-country');
     const capitalField = document.querySelector('#about-capital');
     const currencyField = document.querySelector('#about-currency');
@@ -200,9 +243,8 @@ function resetAll() {
         document.querySelector('#map').style.display = "none";
         
         //DISPLAYING MY INITIAL GLOBAL LIST OF COUNTRIES:
-            
         document.querySelector('ul').style.display = "block";
-        
+        loadingSpinner.style.display = "none";
     })
 }
 
@@ -475,8 +517,6 @@ countriesSelectOption.addEventListener('change', () => {
     inputFieldValue = countriesSelectOption.value;
     getCountryByName();
 })
-
-
 
 //  ---------------------------------- TO DO  ---------------------------------
 
