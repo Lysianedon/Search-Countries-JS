@@ -64,7 +64,7 @@ async function getAllCountries() {
     //INSERTING MY UL LIST INTO THE DOM BELOW THE <HR> ------- : 
     const displayInitialCountiesList = document.querySelector('hr').parentElement.insertBefore(initialCountiesList, allInfosFields[0]);
 
-}
+};
 
 getAllCountries();
 
@@ -136,7 +136,7 @@ async function getCountryByCapital() {
     //MAKING MY INFOS VISIBLE BY CHANGING THE DISPLAY:
     allInfosFields.forEach(field => field.style.display = "block");
 
-}
+};
 
 // CREATING A FUNCTION THAT WILL SEARCH A COUNTRY WITH ITS NAME
 
@@ -215,7 +215,7 @@ async function getCountryByName() {
     //MAKING MY INFOS VISIBLE BY CHANGING THE DISPLAY:
     allInfosFields.forEach(field => field.style.display = "block");
 
-}
+};
 
 
 // ADDING A RESET FUNCTION : WHEN CLICKING ON THE RESET BUTTON, THE WEBSITE FIELDS GET REINITIALIZED ----
@@ -239,7 +239,7 @@ function resetAll() {
         document.querySelector('ul').style.display = "block";
         loadingSpinner.style.display = "none";
     })
-}
+};
 
 
 //-------------------- CREATING MY SEARCH FUNCTIONS  -------------------- : 
@@ -318,7 +318,7 @@ async function listAfricanCountries() {
         countriesSelectOption.appendChild(africanCountry);
         
     }
-}
+};
 
 //AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * AMERICAS * 
 
@@ -351,7 +351,7 @@ async function listAmericasCountries() {
         americanCountry.innerHTML = americasCountries[i];
         countriesSelectOption.appendChild(americanCountry);  
     }
-}
+};
 
 
 // EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * EUROPE * 
@@ -386,7 +386,7 @@ async function listEuropeCountries() {
         countriesSelectOption.appendChild(europeanCountry);
     }
 
-}
+};
 
 //ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * ASIA * 
 //CREATING A FUNCTION THAT WILL MAKE AN HTML SELECT LIST OF THE ASIAN COUNTRIES WHEN ASIA CONTINENT IS SELECTED:
@@ -420,7 +420,7 @@ async function listAsianCountries() {
         countriesSelectOption.appendChild(asianCountry);
     }
 
-}
+};
 
 
 // OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * OCEANIA * 
@@ -456,7 +456,7 @@ async function listOceaniaCountries() {
         countriesSelectOption.appendChild(oceanianCountry);
     }
 
-}
+};
 
 continentOption.addEventListener('click', () => {
 
@@ -501,7 +501,7 @@ continentsSelectOption.addEventListener('change', () => {
         document.querySelector('ul').style.display = "block";
     }
 
-})
+});
 
 
 countriesSelectOption.addEventListener('change', () => {
@@ -509,7 +509,7 @@ countriesSelectOption.addEventListener('change', () => {
     inputFieldValue = countriesSelectOption.value;
     getCountryByName();
 
-})
+});
 
 
 
