@@ -7,7 +7,7 @@ La recherche s'effectue de 3 manières  : par le nom du pays, par sa capitale ou
 
 COMMENT ÇA MARCHE ?  
 
--Récupération de data sur les pays du monde via une API
+-Récupération de data sur les pays du monde via une API : Restcountries.com 
 
 -Traitement et affichage des informations selon plusieurs filtres (par continent, par pays, la monnaie...)
 
