@@ -282,6 +282,7 @@ submitBtn.addEventListener('click', (e) => {
         getCountryByCapital(); 
     }
     const inputField = document.querySelector('#searchbar').value = "";
+    loadingSpinner.style.display = "none";
 
 });
 
